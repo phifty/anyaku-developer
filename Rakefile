@@ -15,5 +15,5 @@ task :deploy do
 
   system "cd #{BUILD_PATH} && git add ."
   system "cd #{BUILD_PATH} && git commit -am'site deployment at #{Time.now}'"
-  system "cd #{BUILD_PATH} && git push origin master"
+  system "cd #{BUILD_PATH} && git push origin gh-pages"
 end
