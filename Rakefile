@@ -9,7 +9,7 @@ task :deploy do
   else
     system "git clone #{GIT_REMOTE} #{BUILD_PATH}"
   end
-  system "cd #{BUILD_PATH} && git checkout gh-pages"
+  system "cd #{BUILD_PATH} && git checkout -B gh-pages"
 
   system 'bundle exec middleman build'
 
