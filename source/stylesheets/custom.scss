@@ -1,0 +1,11 @@
+
+.logo {
+  width: 100px;
+  margin-top: 3em;
+  margin-bottom: 1em;
+}
+
+.logo, .side-nav a {
+  float: right;
+  clear: right;
+}
