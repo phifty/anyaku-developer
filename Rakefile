@@ -1,6 +1,6 @@
 
 BUILD_PATH = File.expand_path(File.dirname(__FILE__) + '/build')
-GIT_REMOTE = 'ssh://git@github.com/simia-tech/simia-tech.github.io'
+GIT_REMOTE = 'ssh://git@github.com/simia-tech/anyaku-developer.io'
 
 desc 'Deploys the website'
 task :deploy do
@@ -9,7 +9,7 @@ task :deploy do
   else
     system "git clone #{GIT_REMOTE} #{BUILD_PATH}"
   end
-  system "cd #{BUILD_PATH} && git checkout master"
+  system "cd #{BUILD_PATH} && git checkout gh-pages"
 
   system 'bundle exec middleman build'
 
