@@ -1,6 +1,6 @@
 
 BUILD_PATH = File.expand_path(File.dirname(__FILE__) + '/build')
-GIT_REMOTE = 'ssh://git@github.com/simia-tech/anyaku-developer.io'
+GIT_REMOTE = 'ssh://git@github.com/simia-tech/anyaku-developer'
 
 desc 'Deploys the website'
 task :deploy do
