@@ -1,5 +1,5 @@
 
-@import url(http://fonts.googleapis.com/css?family=Bigelow+Rules|Open+Sans|Exo+2);
+@import url(http://fonts.googleapis.com/css?family=Bigelow+Rules|Open+Sans);
 
 .header {
   padding: 0.5em 0.7em;
@@ -38,10 +38,20 @@
   }
 }
 
-body {
-  font-family: "Exo 2";
+.tabs {
+  border-bottom: 1px gray solid;
+  dd {
+    border: 1px transparent solid;
+    > a {
+      padding: 0.5em;
+    }
+    &.active {
+      border-color: gray;
+      border-bottom-color: white;
+    }
+  }
 }
 
-a, strong {
-  margin: 0 0.3em;
+body {
+  font-family: "Open Sans";
 }

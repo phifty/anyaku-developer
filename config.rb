@@ -3,7 +3,7 @@
 # Page options, layouts, aliases and proxies
 ###
 
-%w{how-it-works security}.each do |id|
+%w{tutorial how-it-works security download}.each do |id|
   proxy "/#{id}", 'index.html'
 end
 
