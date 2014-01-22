@@ -1,10 +1,44 @@
-/* line 2, /home/phifty/projects/anyaku/developer/source/stylesheets/custom.scss */
-.logo {
-  width: 100px;
-  margin-top: 3em;
-  margin-bottom: 1em; }
+@import url(http://fonts.googleapis.com/css?family=Bigelow+Rules|Open+Sans|Exo+2);
+/* line 4, /home/phifty/projects/anyaku/developer/source/stylesheets/custom.scss */
+.header {
+  padding: 0.5em 0.7em;
+  background-color: #e6e6e6;
+  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+  background-repeat: repeat-x;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px; }
+  /* line 11, /home/phifty/projects/anyaku/developer/source/stylesheets/custom.scss */
+  .header > .logo {
+    display: block;
+    float: left;
+    color: black; }
+    /* line 15, /home/phifty/projects/anyaku/developer/source/stylesheets/custom.scss */
+    .header > .logo > .anyaku {
+      font-family: "Bigelow Rules";
+      font-size: 28px;
+      margin-right: 0.5em; }
+    /* line 20, /home/phifty/projects/anyaku/developer/source/stylesheets/custom.scss */
+    .header > .logo > .developer {
+      position: relative;
+      top: -2px;
+      font-size: 22px; }
+  /* line 26, /home/phifty/projects/anyaku/developer/source/stylesheets/custom.scss */
+  .header > ul {
+    float: right;
+    margin-bottom: inherit; }
+    /* line 30, /home/phifty/projects/anyaku/developer/source/stylesheets/custom.scss */
+    .header > ul > li {
+      float: left;
+      list-style: none; }
+      /* line 33, /home/phifty/projects/anyaku/developer/source/stylesheets/custom.scss */
+      .header > ul > li.separator {
+        margin-left: 0.5em;
+        margin-right: 0.5em; }
 
-/* line 8, /home/phifty/projects/anyaku/developer/source/stylesheets/custom.scss */
-.logo, .side-nav a {
-  float: right;
-  clear: right; }
+/* line 41, /home/phifty/projects/anyaku/developer/source/stylesheets/custom.scss */
+body {
+  font-family: "Exo 2"; }
+
+/* line 45, /home/phifty/projects/anyaku/developer/source/stylesheets/custom.scss */
+a, strong {
+  margin: 0 0.3em; }

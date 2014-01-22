@@ -1,19 +1,11 @@
-<!DOCTYPE html><html class="no-js" lang="en" ng-app="main"><head><meta charset="utf-8" /><meta content="width=device-width" name="viewport" /><link href="/stylesheets/normalize.css" rel="stylesheet" type="text/css" /><link href="/stylesheets/foundation.css" rel="stylesheet" type="text/css" /><link href="http://yandex.st/highlightjs/7.5/styles/googlecode.min.css" rel="stylesheet" type="text/css" /><link href="/stylesheets/custom.css" rel="stylesheet" type="text/css" /><title>Encrypted Profile Documents</title></head><body><div class="row"><div class="columns large-3"><img class="logo" src="/images/logo.svg" /><ul class="side-nav"><li><a href="/">Getting started</a></li><li><a href="/how-it-works">How it works</a></li></ul></div><div class="columns large-9" ng-view=""></div></div><script id="code_pane" type="text/ng-template"><div class="tab-pane" ng-show="selected" ng-transclude=""></div></script><script id="how_it_works" type="text/ng-template"><h2>How it works</h2><p>You wander how this works in detail? The following section will go into detail about how the cryptographic network
-is structured and which processes are used to keep your data safe.</p><p>The base element of the Anyaku network is the <strong>Encrypted Profile Document (EPD)</strong>. It is a JSON-based
-data-structure, that can carry all kind of JSON-encoded data. Further, it contains all the data of a single user. No
-foreign user can change the EPD's content.</p><p>It is an Anyaku policy, that the user's EPD goes though a <strong>locking-process</strong> before it leaves the
-user's device. That ensures, that the server only receives <strong>locked EPDs</strong> and never gets in touch with
-the EPD's unlocked version or the user's private key (that is used to lock the EPD).</p><img src="/images/epd-flow.svg" /><p>As you see in that diagram, the <strong>server only verifies</strong> the EPD's signature and stores it for later
-usage.</p><p>Apart from the user's identity and signature, the EPD also contains a list of <strong>contacts</strong>. This list is
-basically a list of other EPD's identities that the user has set up.</p><p>In order to <strong>share data</strong> with contacts, this data is placed in a <strong>section</strong> and the
-corresponding contact is added to this section. While the user can freely define any number of sections, two special
-sections are fixed. The <strong>public section</strong> is meant to contain data that is not encrypted and public to
-anyone and the <strong>private section</strong> keeps data that is never shared with anyone and only accessible by
-the user itself.</p><p>The data inside a section is structured into <strong>modules</strong>. One module of a kind can be placed into a
-section.</p><img src="/images/epd-modules.svg" /><p>A <strong>Basic module</strong> for example contains basic information like a name, country and a gravatar link and
-is typically placed in the public section. Anyaku uses the information from the public Basic module (if available and
-filled by the user) to generate a search index to enable it's users to get in contact with each other.</p></script><script id="getting_started" type="text/ng-template"><h1>Getting started</h1><p>Anyaku can be used by developers as a generic backend for their Android App (BaaS). To jump right in, you find
-example code for the most common operations of your App right below.</p><tabs><pane title="Kotlin"><pre><code class="kotlin">val generator = Generator()
+<!DOCTYPE html><html class="no-js" lang="en" ng-app="main"><head><meta charset="utf-8" /><meta content="width=device-width" name="viewport" /><link href="/stylesheets/normalize.css" rel="stylesheet" type="text/css" /><link href="/stylesheets/foundation.css" rel="stylesheet" type="text/css" /><link href="http://yandex.st/highlightjs/7.5/styles/googlecode.min.css" rel="stylesheet" type="text/css" /><link href="/stylesheets/custom.css" rel="stylesheet" type="text/css" /><title>Encrypted Profile Documents</title></head><body><div class="row"><div class="columns large-12"><div class="header"><a class="logo" href="/"><span class="anyaku">Anyaku</span><span class="developer">developer</span></a><ul><li><a href="/">Getting started</a></li><li class="separator">|</li><li><a href="/how-it-works">How it works</a></li><li class="separator">|</li><li><a href="/security">Security</a></li></ul><div class="clearfix"></div></div></div></div><div class="row"><div class="columns large-12" ng-view=""></div></div><script id="code_pane" type="text/ng-template"><div class="tab-pane" ng-show="selected" ng-transclude=""></div></script><script id="security" type="text/ng-template"><h1>Security</h1><p>First of all, perfect security does not exists. No system is 100% secure and Anyaku does not have this claim. But we
+strongly believe, that a strong security is an improvement above weak or no security.</p><h2>Policy</h2><p>In order to build a system with strong security, Anyaku follow a few simple policies.<ul><li>All non-public data and keys are leaving the user's device encrypted. This <strong>end-to-end encryption</strong>
+ensures that a compromised server won't effect your privacy.</li><li>All used <strong>encryption algorithms</strong> should be replaceable by new versions. No technology provides
+security forever. There should be always a way to upgrade.</li><li>All data that can't be encrypted - e.g. for technical reasons - should be accessible to anyone. An
+<strong>open API</strong> should ensure, that there is information that Anyaku have, but no-one else.</li><li>All critical code should be exposed to the public. <strong>Open source</strong> enables everyone to
+counter-check functionality and find security holes.</li></ul></p><h2>Private key</h2><p>Every EPD is secured by a private key. It's mandatory e.g. to unlock it's content or build it's signature and for that reason it has to be kept safe. Currently, there are three ways to handle this issue. </p><h3>Local storage</h3><p>Store the private key on the <strong>local</strong> device. This way the private key would not leave the device at all and a possible attacker would have to break into the device to gain access to the user's EPD. The downside is, that the user can only access it's EPD from devices that stores the private key. If the user has multiple devices, he would have to transfer the private key each of them. </p><h3>Remote storage</h3><p>Store the encrypted private key <strong>remotely</strong> inside the EPD. This can be done by passing the encrypted key to the <code>Locker</code> when locking the EPD. </p><tabs><pane title="Kotlin"><pre><code class="kotlin">val encryptedPrivateKey = locker.lock(document.privateKey, password)
+val lockedDocument = locker.lock(document, encryptedPrivateKey)</code></pre></pane><pane title="Java"><pre><code class="java">PasswordEncryptedKey encryptedPrivateKey = locker.lock(document.getPrivateKey(), password);
+SignedLockedDocument lockedDocument = locker.lock(document, encryptedPrivateKey);</code></pre></pane></tabs><p>This adds <strong>portability</strong> to the EPD and gives the user access to it's EPD from any device without transferring the EPD separately. The downside is, that the encrypt key (along with the surrounding locked EPD) is exposed to the public. A possible attacker can fetch the locked EPD and try unlimited times to decrypt the private key. To limit the probability of a successful attack, the password to encrypt the private key should fulfill <strong>strong constrains</strong> and be protected with a <strong>slow hashing algorithm</strong>. </p><p>We recommend at least a password with 8 characters, at least one uppercase, one downcase and one number. </p><h3>Combine local and remote storage</h3><p>The third option is to combine the two described. Our experience is, that users tend to forget passwords with strong constrains quite quickly. Since <strong>Anyaku is unable to recover any lost passwords</strong>, it might be an option to store the private key locally and remotely. The user can access his EPD from any device using his password and in case of lost, he can <strong>recover access</strong> with the device that locally stores the key. </p><p>Try it out by yourself and proceed to the <a href="/download">download</a> page.</p></script><script id="how_it_works" type="text/ng-template"><h1>How it works</h1><p>You wander how this works in detail? The following section will go into detail about how the cryptographic network is structured and which processes are used to keep your data safe. </p><p>The base element of the Anyaku network is the <strong>Encrypted Profile Document (EPD)</strong>. It is a JSON-based data-structure, that can carry all kind of JSON-encoded data. Further, it contains all the data of a single user. No foreign user can change the EPD's content. </p><p>It is an Anyaku policy, that the user's EPD goes though a <strong>locking-process</strong> before it leaves the user's device. That ensures, that the server only receives <strong>locked EPDs</strong> and never gets in touch with the EPD's unlocked version or the user's private key (that is used to lock the EPD). </p><img src="/images/epd-flow.svg" /><p>As you see in that diagram, the <strong>server only verifies</strong> the EPD's signature and stores it for later usage. </p><p>Apart from the user's identity and signature, the EPD also contains a list of <strong>contacts</strong>. This list is basically a list of other EPD's identities that the user has set up. </p><p>In order to <strong>share data</strong> with contacts, this data is placed in a <strong>section</strong> and the corresponding contact is added to this section. While the user can freely define any number of sections, two special sections are fixed. The <strong>public section</strong> is meant to contain data that is not encrypted and public to anyone and the <strong>private section</strong> keeps data that is never shared with anyone and only accessible by the user itself. </p><p>The data inside a section is structured into <strong>modules</strong>. One module of a kind can be placed into a section. </p><img src="/images/epd-modules.svg" /><p>A <strong>Basic module</strong> for example contains basic information like a name, country and a gravatar link and is typically placed in the public section. Anyaku uses the information from the public Basic module (if available and filled by the user) to generate a search index to enable it's users to get in contact with each other. </p><p>On the next page, You'll find some facts about <a href="/security">Security</a>. </p></script><script id="getting_started" type="text/ng-template"><h1>Getting started</h1><p>Anyaku can be used by developers as a generic backend for their Android App (BaaS). To jump right in, you find example code for the most common operations of your App right below. </p><tabs><pane title="Kotlin"><pre><code class="kotlin">val generator = Generator()
 val locker = Locker()
 val client = Client(AndroidTransport())</code></pre><h2>Create a document (Sign up)</h2><pre><code class="kotlin">val document = generator.document()
 
@@ -27,46 +19,38 @@ client.createDocument(lockedDocument)
 // store encryptedPrivateKey and document.id somewhere...</code></pre><h2>Open a document (Sign in)</h2><pre><code class="kotlin">val lockedDocument = client.fetchDocument(documentId)
 
 val encryptedPrivateKey = lockedDocument!!.privateKey
-val password =
-    generator.password("secret", encryptedPrivateKey.hashParameters)
+val password = generator.password("secret", encryptedPrivateKey.hashParameters)
 val privateKey = locker.unlock(encryptedPrivateKey, password)
 
 val document = locker.unlock(lockedDocument, privateKey)
 
-// use the document...</code></pre><h2>Update a document</h2><pre><code class="kotlin">val basicModule =
-    document.sections.publicSection.modules[Basic.id] as Basic
+// use the document...</code></pre><h2>Update a document</h2><pre><code class="kotlin">val basicModule = document.sections.publicSection.modules[Basic.id] as Basic
 basicModule.name = "Jane Doe"
 
-val updatedLockedDocument =
-    locker.lock(document, encryptedPrivateKey)
+val updatedLockedDocument = locker.lock(document, encryptedPrivateKey)
 
 client.updateDocument(updatedLockedDocument)</code></pre></pane><pane title="Java"><pre><code class="java">final Generator generator = new Generator();
 final Locker locker = new Locker();
-final Client client =
-    new Client(new AndroidTransport());</code></pre><h2>Create a document (Sign up)</h2><pre><code class="java">UnlockedDocument document = generator.document();
+final Client client = new Client(new AndroidTransport());</code></pre><h2>Create a document (Sign up)</h2><pre><code class="java">UnlockedDocument document = generator.document();
 Password password = generator.password("secret");
-PasswordEncryptedKey encryptedPrivateKey =
-    locker.lock(document.getPrivateKey(), password);
+PasswordEncryptedKey encryptedPrivateKey = locker.lock(document.getPrivateKey(), password);
 
-SignedLockedDocument lockedDocument =
-    locker.lock(document, encryptedPrivateKey);
+SignedLockedDocument lockedDocument = locker.lock(document, encryptedPrivateKey);
 
 client.createDocument(lockedDocument);
 
 // store encryptedPrivateKey and document.getId() somewhere...</code></pre><h2>Open a document (Sign in)</h2><pre><code class="java">SignedLockedDocument lockedDocument = client.fetchDocument(documentId);
 
 PasswordEncryptedKey encryptedPrivateKey = lockedDocument.getPrivateKey();
-Password password =
-    generator.password("secret", encryptedPrivateKey.getHashParameters());
+Password password = generator.password("secret", encryptedPrivateKey.getHashParameters());
 Key privateKey = locker.unlock(encryptedPrivateKey, password);
 
 UnlockedDocument document = locker.unlock(lockedDocument, privateKey);
 
-// use the document...</code></pre><h2>Update a document</h2><pre><code class="java">Basic basicModule = (Basic)document.getSections().getPublicSection().
-    getModules().get(Basic.id);
+// use the document...</code></pre><h2>Update a document</h2><pre><code class="java">Basic basicModule =
+    (Basic)document.getSections().getPublicSection().getModules().get(Basic.id);
 basicModule.name = "Jane Doe";
 
-SignedLockedDocument updatedLockedDocument =
-    locker.lock(document, encryptedPrivateKey);
+SignedLockedDocument updatedLockedDocument = locker.lock(document, encryptedPrivateKey);
 
-client.updateDocument(updatedLockedDocument);</code></pre></pane></tabs><p>To learn more about how Anyaku is functioning, follow up to <a href="/how-it-works">how it works</a>.</p></script><script id="code_tabs" type="text/ng-template"><dl class="tabs"><dd ng-class="{active:pane.selected}" ng-repeat="pane in panes"><a href="" ng-click="select(pane)">{{ pane.title }}</a></dd></dl><div class="tabs-content" ng-transclude=""></div></script><script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.js" type="text/javascript"></script><script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.js" type="text/javascript"></script><script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-cookies.js" type="text/javascript"></script><script src="http://yandex.st/highlightjs/7.5/highlight.min.js" type="text/javascript"></script><script src="/javascripts/custom.js" type="text/javascript"></script></body></html>
+client.updateDocument(updatedLockedDocument);</code></pre></pane></tabs><p>To learn more about how Anyaku is functioning, follow up to <a href="/how-it-works">how it works</a>. </p></script><script id="code_tabs" type="text/ng-template"><dl class="tabs"><dd ng-class="{active:pane.selected}" ng-repeat="pane in panes"><a href="" ng-click="select(pane)">{{ pane.title }}</a></dd></dl><div class="tabs-content" ng-transclude=""></div></script><script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.js" type="text/javascript"></script><script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.js" type="text/javascript"></script><script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-cookies.js" type="text/javascript"></script><script src="http://yandex.st/highlightjs/7.5/highlight.min.js" type="text/javascript"></script><script src="/javascripts/custom.js" type="text/javascript"></script></body></html>
