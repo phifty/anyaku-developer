@@ -1,7 +1,8 @@
 h1 Getting started
 
-p Anyaku can be used by developers as a generic backend for their Android App (BaaS). To jump right in, you find
-  example code for the most common operations of your App right below.
+p
+  ' Anyaku can be used by developers as a generic backend for their Android App (BaaS). To jump right in, you find
+  ' example code for the most common operations of your App right below.
 
 tabs
   pane title="Kotlin"
@@ -28,8 +29,7 @@ tabs
       code.kotlin val lockedDocument = client.fetchDocument(documentId)
 
                   val encryptedPrivateKey = lockedDocument!!.privateKey
-                  val password =
-                      generator.password("secret", encryptedPrivateKey.hashParameters)
+                  val password = generator.password("secret", encryptedPrivateKey.hashParameters)
                   val privateKey = locker.unlock(encryptedPrivateKey, password)
 
                   val document = locker.unlock(lockedDocument, privateKey)
@@ -38,12 +38,10 @@ tabs
 
     h2 Update a document
     pre
-      code.kotlin val basicModule =
-                      document.sections.publicSection.modules[Basic.id] as Basic
+      code.kotlin val basicModule = document.sections.publicSection.modules[Basic.id] as Basic
                   basicModule.name = "Jane Doe"
 
-                  val updatedLockedDocument =
-                      locker.lock(document, encryptedPrivateKey)
+                  val updatedLockedDocument = locker.lock(document, encryptedPrivateKey)
 
                   client.updateDocument(updatedLockedDocument)
 
@@ -51,18 +49,15 @@ tabs
     pre
       code.java final Generator generator = new Generator();
                 final Locker locker = new Locker();
-                final Client client =
-                    new Client(new AndroidTransport());
+                final Client client = new Client(new AndroidTransport());
 
     h2 Create a document (Sign up)
     pre
       code.java UnlockedDocument document = generator.document();
                 Password password = generator.password("secret");
-                PasswordEncryptedKey encryptedPrivateKey =
-                    locker.lock(document.getPrivateKey(), password);
+                PasswordEncryptedKey encryptedPrivateKey = locker.lock(document.getPrivateKey(), password);
 
-                SignedLockedDocument lockedDocument =
-                    locker.lock(document, encryptedPrivateKey);
+                SignedLockedDocument lockedDocument = locker.lock(document, encryptedPrivateKey);
 
                 client.createDocument(lockedDocument);
 
@@ -73,8 +68,7 @@ tabs
       code.java SignedLockedDocument lockedDocument = client.fetchDocument(documentId);
 
                 PasswordEncryptedKey encryptedPrivateKey = lockedDocument.getPrivateKey();
-                Password password =
-                    generator.password("secret", encryptedPrivateKey.getHashParameters());
+                Password password = generator.password("secret", encryptedPrivateKey.getHashParameters());
                 Key privateKey = locker.unlock(encryptedPrivateKey, password);
 
                 UnlockedDocument document = locker.unlock(lockedDocument, privateKey);
@@ -83,13 +77,13 @@ tabs
 
     h2 Update a document
     pre
-      code.java Basic basicModule = (Basic)document.getSections().getPublicSection().
-                    getModules().get(Basic.id);
+      code.java Basic basicModule =
+                    (Basic)document.getSections().getPublicSection().getModules().get(Basic.id);
                 basicModule.name = "Jane Doe";
 
-                SignedLockedDocument updatedLockedDocument =
-                    locker.lock(document, encryptedPrivateKey);
+                SignedLockedDocument updatedLockedDocument = locker.lock(document, encryptedPrivateKey);
 
                 client.updateDocument(updatedLockedDocument);
 
-p To learn more about how Anyaku is functioning, follow up to <a href="/how-it-works">how it works</a>.
+p
+  ' To learn more about how Anyaku is functioning, follow up to <a href="/how-it-works">how it works</a>.

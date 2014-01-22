@@ -12,17 +12,24 @@ html class="no-js" lang="en" ng-app="main"
 
   body
     .row
-      .columns.large-3
-        img.logo src="/images/logo.svg"
-        ul.side-nav
-          li
-            a href="/" Getting started
-          li
-            a href="/how-it-works" How it works
-          li
-            a href="/security" Security
+      .columns.large-12
+        .header
+          a.logo href="/"
+            span.anyaku Anyaku
+            span.developer developer
+          ul
+            li
+              a href="/" Getting started
+            li.separator |
+            li
+              a href="/how-it-works" How it works
+            li.separator |
+            li
+              a href="/security" Security
+          .clearfix
 
-      .columns.large-9 ng-view=""
+    .row
+      .columns.large-12 ng-view=""
 
     - Dir[ File.join(File.dirname(__FILE__), 'pages', '*.slim') ].each do |filename|
       - id = File.basename(filename, '.slim').sub(/^_/, '')
