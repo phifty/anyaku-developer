@@ -49,7 +49,8 @@ application.directive('tabs', function () {
             });
 
             this.addPane = function (pane) {
-                if (pane.title === $cookies.selectedLanguage) {
+                var selectedLanguage = $cookies.selectedLanguage;
+                if (selectedLanguage ? (pane.title === selectedLanguage) : (panes.length === 0)) {
                     $scope.select(pane);
                 }
                 panes.push(pane);
