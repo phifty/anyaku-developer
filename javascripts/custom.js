@@ -7,7 +7,7 @@ hljs.initHighlightingOnLoad();
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-ga('create', 'UA-40381599-2', 'simia-tech.github.io');
+ga('create', 'UA-40381599-2', 'developer.anyaku.com');
 ga('send', 'pageview');
 
 // application
@@ -17,8 +17,10 @@ application.config(function ($routeProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
     $routeProvider.
         when('/', { templateUrl: 'getting_started' }).
+        when('/tutorial', { templateUrl: 'tutorial' }).
         when('/how-it-works', { templateUrl: 'how_it_works' }).
         when('/security', { templateUrl: 'security' }).
+        when('/download', { templateUrl: 'download' }).
         otherwise({ redirectTo: '/' });
 });
 
@@ -28,7 +30,7 @@ application.directive('tabs', function () {
         transclude: true,
         scope: { },
         templateUrl: 'code_tabs',
-        controller: function ($scope) {
+        controller: function ($scope, $rootScope, $cookies) {
             var panes = $scope.panes = [ ];
 
             $scope.select = function (pane) {
@@ -36,10 +38,18 @@ application.directive('tabs', function () {
                     p.selected = false;
                 });
                 pane.selected = true;
+                $cookies.selectedLanguage = pane.title;
+                $rootScope.$emit('language-select', pane.title);
             };
 
+            $rootScope.$on('language-select', function (event, title) {
+                angular.forEach(panes, function (p) {
+                    p.selected = (p.title === title);
+                });
+            });
+
             this.addPane = function (pane) {
-                if (panes.length == 0) {
+                if (pane.title === $cookies.selectedLanguage) {
                     $scope.select(pane);
                 }
                 panes.push(pane);

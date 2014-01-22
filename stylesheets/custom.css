@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Bigelow+Rules|Open+Sans|Exo+2);
+@import url(http://fonts.googleapis.com/css?family=Bigelow+Rules|Open+Sans);
 /* line 4, /home/phifty/projects/anyaku/developer/source/stylesheets/custom.scss */
 .header {
   padding: 0.5em 0.7em;
@@ -36,9 +36,19 @@
         margin-right: 0.5em; }
 
 /* line 41, /home/phifty/projects/anyaku/developer/source/stylesheets/custom.scss */
-body {
-  font-family: "Exo 2"; }
+.tabs {
+  border-bottom: 1px gray solid; }
+  /* line 43, /home/phifty/projects/anyaku/developer/source/stylesheets/custom.scss */
+  .tabs dd {
+    border: 1px transparent solid; }
+    /* line 45, /home/phifty/projects/anyaku/developer/source/stylesheets/custom.scss */
+    .tabs dd > a {
+      padding: 0.5em; }
+    /* line 48, /home/phifty/projects/anyaku/developer/source/stylesheets/custom.scss */
+    .tabs dd.active {
+      border-color: gray;
+      border-bottom-color: white; }
 
-/* line 45, /home/phifty/projects/anyaku/developer/source/stylesheets/custom.scss */
-a, strong {
-  margin: 0 0.3em; }
+/* line 55, /home/phifty/projects/anyaku/developer/source/stylesheets/custom.scss */
+body {
+  font-family: "Open Sans"; }
