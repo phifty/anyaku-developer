@@ -3,9 +3,9 @@
 # Page options, layouts, aliases and proxies
 ###
 
-#%w{how-it-works}.each do |id|
-#  proxy "/#{id}", 'index.html'
-#end
+%w{how-it-works security}.each do |id|
+  proxy "/#{id}", 'index.html'
+end
 
 proxy '404.html', 'index.html'
 

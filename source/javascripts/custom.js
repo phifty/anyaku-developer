@@ -18,6 +18,7 @@ application.config(function ($routeProvider, $locationProvider) {
     $routeProvider.
         when('/', { templateUrl: 'getting_started' }).
         when('/how-it-works', { templateUrl: 'how_it_works' }).
+        when('/security', { templateUrl: 'security' }).
         otherwise({ redirectTo: '/' });
 });
 

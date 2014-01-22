@@ -1,0 +1,67 @@
+h1 Security
+
+p First of all, perfect security does not exists. No system is 100% secure and Anyaku does not have this claim. But we
+  strongly believe, that a strong security is an improvement above weak or no security.
+
+h2 Policy
+
+p
+  | In order to build a system with strong security, Anyaku follow a few simple policies.
+  ul
+    li All non-public data and keys are leaving the user's device encrypted. This <strong>end-to-end encryption</strong>
+       ensures that a compromised server won't effect your privacy.
+
+    li All used <strong>encryption algorithms</strong> should be replaceable by new versions. No technology provides
+       security forever. There should be always a way to upgrade.
+
+    li All data that can't be encrypted - e.g. for technical reasons - should be accessible to anyone. An
+       <strong>open API</strong> should ensure, that there is information that Anyaku have, but no-one else.
+
+    li All critical code should be exposed to the public. <strong>Open source</strong> enables everyone to
+       counter-check functionality and find security holes.
+
+h2 Private key
+
+p
+  ' Every EPD is secured by a private key. It's mandatory e.g. to unlock it's content or build it's signature and for
+  ' that reason it has to be kept safe. Currently, there are three ways to handle this issue.
+
+h3 Local storage
+p
+  ' Store the private key on the <strong>local</strong> device. This way the private key would not leave the device
+  ' at all and a possible attacker would have to break into the device to gain access to the user's EPD.
+  ' The downside is, that the user can only access it's EPD from devices that stores the private key. If the user has
+  ' multiple devices, he would have to transfer the private key each of them.
+
+h3 Remote storage
+p
+  ' Store the encrypted private key <strong>remotely</strong> inside the EPD. This can be done by passing the
+  ' encrypted key to the <code>Locker</code> when locking the EPD.
+
+tabs
+  pane title="Kotlin"
+    pre
+      code.kotlin val encryptedPrivateKey = locker.lock(document.privateKey, password)
+                  val lockedDocument = locker.lock(document, encryptedPrivateKey)
+  pane title="Java"
+    pre
+      code.java PasswordEncryptedKey encryptedPrivateKey = locker.lock(document.getPrivateKey(), password);
+                SignedLockedDocument lockedDocument = locker.lock(document, encryptedPrivateKey);
+
+p
+  ' This adds <strong>portability</strong> to the EPD and gives the user access to it's EPD from any device without
+  ' transferring the EPD separately. The downside is, that the encrypt key (along with the surrounding locked EPD) is
+  ' exposed to the public. A possible attacker can fetch the locked EPD and try unlimited times to decrypt the private
+  ' key. To limit the probability of a successful attack, the password to encrypt the private key should fulfill
+  ' <strong>strong constrains</strong> and be protected with a <strong>slow hashing algorithm</strong>.
+p
+  ' We recommend at least a password with 8 characters, at least one uppercase, one downcase and one number.
+
+h3 Combine local and remote storage
+p
+  ' The third option is to combine the two described. Our experience is, that users tend to forget passwords with
+  ' strong constrains quite quickly. Since <strong>Anyaku is unable to recover any lost passwords</strong>, it might
+  ' be an option to store the private key locally and remotely. The user can access his EPD from any device using his
+  ' password and in case of lost, he can <strong>recover access</strong> with the device that locally stores the key.
+
+p Try it out by yourself and proceed to the <a href="/download">download</a> page.
