@@ -16,11 +16,21 @@ var application = angular.module('main', [ 'ngRoute', 'ngCookies' ]);
 application.config(function ($routeProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
     $routeProvider.
-        when('/', { templateUrl: 'getting_started' }).
-        when('/tutorial', { templateUrl: 'tutorial' }).
-        when('/how-it-works', { templateUrl: 'how_it_works' }).
-        when('/security', { templateUrl: 'security' }).
+        when('/', { templateUrl: 'home' }).
+        when('/documentation', { templateUrl: 'documentation' }).
+        when('/documentation/general/installation', { templateUrl: 'documentation_general_installation' }).
+        when('/documentation/general/how-it-works', { templateUrl: 'documentation_general_how_it_works' }).
+        when('/documentation/general/security', { templateUrl: 'documentation_general_security' }).
+        when('/documentation/operations/create', { templateUrl: 'documentation_operations_create' }).
+        when('/documentation/operations/open', { templateUrl: 'documentation_operations_open' }).
+        when('/documentation/operations/update', { templateUrl: 'documentation_operations_update' }).
+        when('/documentation/operations/search', { templateUrl: 'documentation_operations_search' }).
+        when('/documentation/operations/manage-contacts', { templateUrl: 'documentation_operations_manage_contacts' }).
+        when('/documentation/operations/subscribe-contact-updates', { templateUrl: 'documentation_operations_subscribe_contact_updates' }).
+        when('/documentation/modules/build-in', { templateUrl: 'documentation_modules_build_in' }).
+        when('/documentation/modules/create-own', { templateUrl: 'documentation_modules_create_own' }).
         when('/download', { templateUrl: 'download' }).
+        when('/contribute', { templateUrl: 'contribute' }).
         otherwise({ redirectTo: '/' });
 });
 
