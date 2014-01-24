@@ -1,0 +1,53 @@
+h1 Getting started
+
+p
+  ' Anyaku can be used by developers as a generic backend for their <strong>Android Apps</strong>. It's a
+  ' <strong>Backend as a Service (BaaS)</strong> that stores the data only encrypted. This enables you to easily add
+  ' <strong>end-to-end encryption</strong> to your application.
+p
+  ' To jump right in, you find example code for the most common operations of your App right below.
+
+h2 Create an Encrypted Profile Document (Sign up)
+tabs
+  pane title="Kotlin"
+    pre
+      code.kotlin val generator = Generator()
+                  val locker = Locker()
+                  val client = Client(AndroidTransport())
+
+                  val document = generator.document()
+                  val basicModule = document.sections.publicSection.modules[Basic.id] as Basic
+                  basicModule.name = "Jane Doe"
+
+                  val password = generator.password("secret")
+                  val encryptedPrivateKey = locker.lock(document.privateKey, password)
+
+                  val lockedDocument = locker.lock(document, encryptedPrivateKey)
+
+                  client.createDocument(lockedDocument)
+
+                  // store the document.id somewhere...
+  pane title="Java"
+    pre
+      code.java final Generator generator = new Generator();
+                final Locker locker = new Locker();
+                final Client client = new Client(new AndroidTransport());
+
+                UnlockedDocument document = generator.document();
+                Basic basicModule =
+                    (Basic)document.getSections().getPublicSection().getModules().get(Basic.id);
+                basicModule.name = "Jane Doe";
+
+                Password password = generator.password("secret");
+                PasswordEncryptedKey encryptedPrivateKey = locker.lock(document.getPrivateKey(), password);
+
+                SignedLockedDocument lockedDocument = locker.lock(document, encryptedPrivateKey);
+
+                client.createDocument(lockedDocument);
+
+                // store document.getId() somewhere...
+
+p
+  | Well, you just signed up with you first EPD.
+p
+  | To learn more about how Anyaku is functioning, follow up to the <a href="/documentation">documentation</a>.

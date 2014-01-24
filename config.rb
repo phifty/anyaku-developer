@@ -3,7 +3,22 @@
 # Page options, layouts, aliases and proxies
 ###
 
-%w{tutorial how-it-works security download}.each do |id|
+%w{
+documentation
+documentation/general/installation
+documentation/general/how-it-works
+documentation/general/security
+documentation/operations/create
+documentation/operations/open
+documentation/operations/update
+documentation/operations/search
+documentation/operations/manage-contacts
+documentation/operations/subscribe-contact-updates
+documentation/modules/build-in
+documentation/modules/create-own
+download
+contribute
+}.each do |id|
   proxy "/#{id}", 'index.html'
 end
 

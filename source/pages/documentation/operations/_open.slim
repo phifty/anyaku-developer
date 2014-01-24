@@ -1,0 +1,25 @@
+h1 Open
+
+tabs
+  pane title="Kotlin"
+    pre
+      code.kotlin val lockedDocument = client.fetchDocument(documentId)
+
+                  val encryptedPrivateKey = lockedDocument!!.privateKey
+                  val password = generator.password("secret", encryptedPrivateKey.hashParameters)
+                  val privateKey = locker.unlock(encryptedPrivateKey, password)
+
+                  val document = locker.unlock(lockedDocument, privateKey)
+
+                  // use the document...
+  pane title="Java"
+    pre
+      code.java SignedLockedDocument lockedDocument = client.fetchDocument(documentId);
+
+                PasswordEncryptedKey encryptedPrivateKey = lockedDocument.getPrivateKey();
+                Password password = generator.password("secret", encryptedPrivateKey.getHashParameters());
+                Key privateKey = locker.unlock(encryptedPrivateKey, password);
+
+                UnlockedDocument document = locker.unlock(lockedDocument, privateKey);
+
+                // use the document...
