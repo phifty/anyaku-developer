@@ -1,5 +1,10 @@
 h1 Update
 
+p
+  ' The update operation should be triggered, if the local unlocked EPD has changed and the changes should be published
+  ' to the members of the Anyaku network. It simply locks the updated EPD and pushes the locked version to the Anyaku
+  ' Backend.
+
 tabs
   pane title="Kotlin"
     pre
@@ -18,3 +23,7 @@ tabs
                 SignedLockedDocument updatedLockedDocument = locker.lock(document, encryptedPrivateKey);
 
                 client.updateDocument(updatedLockedDocument);
+
+p
+  ' To learn about how to find EPD in the Anyaku network, follow up to the documentation of the
+  ' <a href="/documentation/operations/search">search</a> operation.

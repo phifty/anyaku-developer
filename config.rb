@@ -13,6 +13,7 @@ documentation/operations/open
 documentation/operations/update
 documentation/operations/search
 documentation/operations/manage-contacts
+documentation/operations/manage-sections
 documentation/operations/subscribe-contact-updates
 documentation/modules/build-in
 documentation/modules/create-own

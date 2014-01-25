@@ -1,5 +1,10 @@
 h1 Open
 
+p
+  ' This peace of code should demonstrate how an EPD is loaded from the Anyaku Backend and opened. In order to do that,
+  ' the EPD's id has to be passed to the fetch method. If the <code>documentId</code> isn't stored from the previous usage, your App can
+  ' perform a <a href="/documentation/operations/search">search</a> operation to find the right EPD.
+
 tabs
   pane title="Kotlin"
     pre
@@ -23,3 +28,7 @@ tabs
                 UnlockedDocument document = locker.unlock(lockedDocument, privateKey);
 
                 // use the document...
+
+p
+  ' The resulting unlocked version of the EPD can be modified and than played back to the Anyaku Backend using the
+  ' <a href="/documentation/operations/update">update</a> operation.

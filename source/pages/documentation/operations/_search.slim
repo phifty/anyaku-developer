@@ -1,1 +1,28 @@
 h1 Search
+
+p
+  ' To make new contacts, it's essential to find other members of the Anyaku network. The query string that is passed
+  ' to the search method is used by the Anyaku Backend to search in the public Basic modules of all known EPDs for
+  ' matches.
+
+tabs
+  pane title="Kotlin"
+    pre
+      code.kotlin val results = client.search("Jane Doe")
+                  for (result in results) {
+                      Log.d("epd", "id: ${result.id}")
+                      Log.d("epd", "name: ${result.name}")
+                      Log.d("epd", "country: ${result.country}")
+                  }
+  pane title="Java"
+    pre
+      code.java Collection<Result> results = client.search("Jane Doe");
+                for (Result result : results) {
+                    Log.d("epd", "id: " + result.getId());
+                    Log.d("epd", "name: " + result.getName());
+                    Log.d("epd", "country: " + result.getCountry());
+                }
+
+p
+  ' Once you have found another EPD, you can add it to your contacts. See
+  ' <a href="/documentation/operations/manage-contacts">manage contacts</a> to learn how this works.
