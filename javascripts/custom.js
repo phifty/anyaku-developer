@@ -26,6 +26,7 @@ application.config(function ($routeProvider, $locationProvider) {
         when('/documentation/operations/update', { templateUrl: 'documentation_operations_update' }).
         when('/documentation/operations/search', { templateUrl: 'documentation_operations_search' }).
         when('/documentation/operations/manage-contacts', { templateUrl: 'documentation_operations_manage_contacts' }).
+        when('/documentation/operations/manage-sections', { templateUrl: 'documentation_operations_manage_sections' }).
         when('/documentation/operations/subscribe-contact-updates', { templateUrl: 'documentation_operations_subscribe_contact_updates' }).
         when('/documentation/modules/build-in', { templateUrl: 'documentation_modules_build_in' }).
         when('/documentation/modules/create-own', { templateUrl: 'documentation_modules_create_own' }).
