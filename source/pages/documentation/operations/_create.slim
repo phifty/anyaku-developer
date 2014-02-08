@@ -31,8 +31,7 @@ tabs
                 final Client client = new Client(new AndroidTransport());
 
                 UnlockedDocument document = generator.document();
-                Basic basicModule =
-                    (Basic)document.getSections().getPublicSection().getModules().get(Basic.id);
+                Basic basicModule = (Basic)document.getSections().getPublicSection().getModules().get(Basic.id);
                 basicModule.name = "Jane Doe";
 
                 Password password = generator.password("secret");

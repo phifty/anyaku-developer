@@ -16,8 +16,7 @@ tabs
                   client.updateDocument(updatedLockedDocument)
   pane title="Java"
     pre
-      code.java Basic basicModule =
-                    (Basic)document.getSections().getPublicSection().getModules().get(Basic.id);
+      code.java Basic basicModule = (Basic)document.getSections().getPublicSection().getModules().get(Basic.id);
                 basicModule.name = "John Doe";
 
                 SignedLockedDocument updatedLockedDocument = locker.lock(document, encryptedPrivateKey);

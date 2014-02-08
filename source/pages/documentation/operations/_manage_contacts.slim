@@ -1,1 +1,26 @@
 h1 Manage contacts
+
+p
+  ' Once you have found other members of the Anyaku network, you can add them as a contact. Simply, modify the list of
+  ' contacts of your unlocked document, re-lock it and push it to the Anyaku backend.
+
+tabs
+  pane title="Kotlin"
+    pre
+      code.kotlin val results = client.search("Jane Doe")
+
+                  document.contacts.add(results.first())
+
+                  val updatedLockedDocument = locker.lock(document, encryptedPrivateKey)
+                  client.updateDocument(updatedLockedDocument)
+  pane title="Java"
+    pre
+      code.java Collection<Result> results = client.search("Jane Doe");
+
+                document.getContacts().add(results.first());
+
+                SignedLockedDocument updatedLockedDocument = locker.lock(document, encryptedPrivateKey);
+                client.updateDocument(updatedLockedDocument);
+
+p
+  ' The next document will show you how to <a href="/documentation/operations/manage-sections">manage sections</a>.

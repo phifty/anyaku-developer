@@ -1,1 +1,36 @@
 h1 Build-in modules
+
+p
+  ' The Build-in modules are shipped with the library and should be used to handle content that most applications need.
+
+h2 The Basic module
+
+p
+  ' This module typically lives in the public section and handles basic user information. It's three fields (name,
+  ' country and gravatar) are all optional and it's typically used to enable users to get in contact with each other.
+  ' An empty Basic module is added to the public section every new EPD by default. It can be filled with information
+  ' quite easily.
+
+tabs
+  pane title="Kotlin"
+    pre
+      code.kotlin val basicModule = document.sections.publicSection.modules[Basic.id] as Basic
+                  basicModule.name = "Jane Doe"
+                  basicModule.country = "DEU"
+                  basicModule.gravatar = "jane.doe@example.com"
+
+                  val updatedLockedDocument = locker.lock(document, encryptedPrivateKey)
+                  client.updateDocument(updatedLockedDocument)
+  pane title="Java"
+    pre
+      code.java Basic basicModule = (Basic)document.getSections().getPublicSection().getModules().get(Basic.id);
+                basicModule.name = "Jane Doe";
+                basicModule.country = "DEU";
+                basicModule.gravatar = "jane.doe@example.com";
+
+                SignedLockedDocument updatedLockedDocument = locker.lock(document, encryptedPrivateKey);
+                client.updateDocument(updatedLockedDocument);
+
+p
+  ' Since your application might need to handle it's own content, you might need to
+  ' <a href="/documentation/modules/create-own">Create your own module</a>.

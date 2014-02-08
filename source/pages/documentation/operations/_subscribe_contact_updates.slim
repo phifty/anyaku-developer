@@ -1,1 +1,54 @@
 h1 Subscribe updates of contacted EPDs
+
+p
+  ' The Anyaku backend uses several ways to inform connected clients about updates of documents. On the Android
+  ' platform, <a href="http://developer.android.com/google/gcm" target="_new">Google Cloud Messaging</a> is used. A
+  ' client can subscribe updates of contacted EPDs.
+
+p
+  ' When an update occurs, a callback handler is called with an already (partial) unlocked collection of contacted
+  ' documents. If you only interested in updates of certain modules, it's possible to install a more specific update
+  ' listener.
+
+tabs
+  pane title="Kotlin"
+    pre
+      code.kotlin import com.anyaku.epd.client.Handler
+
+                  val subscription = client.subscribeContactUpdatesOf(document)
+
+                  subscription.onContactDocumentUpdated(object : Handler&lt;Collection&lt;UnlockedForeignDocument&gt;&gt; {
+                      override fun handler(argument: Collection&lt;UnlockedForeignDocument&gt;) {
+                          // process the updated contact documents ...
+                      }
+                  })
+
+                  subscription.onContactModulesUpdated<Basic>(Basic.id, object : Handler&lt;Collection&lt;Basic&gt;&gt; {
+                      override fun handler(argument: Collection&lt;Basic&gt;) {
+                          // process the updated modules of the contact documents ...
+                      }
+                  })
+  pane title="Java"
+    pre
+      code.java import com.anyaku.epd.client.Handler
+
+                Subscription subscription = client.subscribeContactUpdatesOf(document);
+
+                subscription.onContactDocumentUpdated(new Handler&lt;Collection&lt;UnlockedForeignDocument&gt;&gt;() {
+                    @Override
+                    public void handler(Collection&lt;UnlockedForeignDocument&gt; argument) {
+                        // process the updated contact documents ...
+                    }
+                });
+
+                subscription.onContactModulesUpdated<Basic>(Basic.getId(), new Handler&lt;Collection&lt;Basic&gt;&gt;() {
+                    @Override
+                    public void handler(Collection&lt;Basic&gt; argument) {
+                        // process the updated contact documents ...
+                    }
+                });
+
+p
+  ' Read the document about <a href="/documentation/modules/build-in">Build-in modules</a>, to learn which modules are
+  ' available right from the start or <a href="/documentation/modules/create-own">Create your own modules</a>, if you
+  ' intent to create your own.

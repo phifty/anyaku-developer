@@ -1,1 +1,30 @@
 h1 Manage sections
+
+p
+  ' Sections are managed in a similar way as contacts. The unlocked document is locally modified, re-locked and an
+  ' updated version is pushed to the Anyaku backend. Once a section is created, members can be added to it. To add a
+  ' member, you need to provide the id of a contact that you've added before.
+
+tabs
+  pane title="Kotlin"
+    pre
+      code.kotlin val sectionId = document.sections.add("Friends")
+                  document.sections[sectionId].addMember(contactId)
+
+                  val updatedLockedDocument = locker.lock(document, encryptedPrivateKey)
+                  client.updateDocument(updatedLockedDocument)
+  pane title="Java"
+    pre
+      code.java String sectionId = document.getSections().add("Friends");
+                document.getSections().get(sectionId).addMember(contactId);
+
+                SignedLockedDocument updatedLockedDocument = locker.lock(document, encryptedPrivateKey);
+                client.updateDocument(updatedLockedDocument);
+
+p
+  ' The members of each section can read its content. If you need to remove the access permissions, simply remove the
+  ' contact from the section's member list.
+
+p
+  ' In order to keep track of your contact's EPD updates, read about how to
+  ' <a href="/documentation/operations/subscribe-contact-updates">subscribe updates of contacted EPDs</a>.
