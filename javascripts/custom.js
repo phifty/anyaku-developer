@@ -10,6 +10,14 @@ hljs.initHighlightingOnLoad();
 ga('create', 'UA-40381599-2', 'developer.anyaku.com');
 ga('send', 'pageview');
 
+// disqus code
+var disqus_shortname = 'anyaku-developer';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+
 // application
 var application = angular.module('main', [ 'ngRoute', 'ngCookies' ]);
 
@@ -34,6 +42,22 @@ application.config(function ($routeProvider, $locationProvider) {
         when('/contribute', { templateUrl: 'contribute' }).
         otherwise({ redirectTo: '/' });
 });
+
+function PageController($scope) {
+    $scope.$on('$locationChangeSuccess', function (event, next) {
+        if (!window.DISQUS)
+            return;
+
+        var path = next.replace(/^.+\/\/.+\//, '/');
+        window.DISQUS.reset({
+            reload: true,
+            config: function () {
+                this.page.identifier = path;
+                this.page.url = next;
+            }
+        });
+    });
+}
 
 application.directive('tabs', function () {
     return {
