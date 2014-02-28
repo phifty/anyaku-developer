@@ -26,7 +26,7 @@ application.config(function ($routeProvider, $locationProvider) {
     $routeProvider.
         when('/', { templateUrl: 'home' }).
         when('/documentation', { templateUrl: 'documentation' }).
-        when('/documentation/general/installation', { templateUrl: 'documentation_general_installation' }).
+        when('/documentation/general/setup', { templateUrl: 'documentation_general_setup' }).
         when('/documentation/general/how-it-works', { templateUrl: 'documentation_general_how_it_works' }).
         when('/documentation/general/security', { templateUrl: 'documentation_general_security' }).
         when('/documentation/operations/create', { templateUrl: 'documentation_operations_create' }).
@@ -39,7 +39,6 @@ application.config(function ($routeProvider, $locationProvider) {
         when('/documentation/modules/build-in', { templateUrl: 'documentation_modules_build_in' }).
         when('/documentation/modules/create-own', { templateUrl: 'documentation_modules_create_own' }).
         when('/download', { templateUrl: 'download' }).
-        when('/contribute', { templateUrl: 'contribute' }).
         otherwise({ redirectTo: '/' });
 });
 
