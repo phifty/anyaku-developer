@@ -5,7 +5,7 @@
 
 %w{
 documentation
-documentation/general/installation
+documentation/general/setup
 documentation/general/how-it-works
 documentation/general/security
 documentation/operations/create
@@ -18,7 +18,6 @@ documentation/operations/subscribe-contact-updates
 documentation/modules/build-in
 documentation/modules/create-own
 download
-contribute
 }.each do |id|
   proxy "/#{id}", 'index.html'
 end

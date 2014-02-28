@@ -1,0 +1,47 @@
+h1 Setup
+
+p
+  ' The easiest way to set up your Android application to use the Anyaku Backend, is to add the client library to your
+  ' dependencies. If you're using <a href="http://www.gradle.org" target="_blank">Gradle</a>, add the following to
+  ' <code>build.gradle</code>.
+
+pre
+  code.groovy repositories {
+                  maven {
+                      url 'https://oss.sonatype.org/content/repositories/snapshots'
+                  }
+              }
+
+              dependencies {
+                  compile group: 'com.anyaku', name: 'epd-client-android', version: '0.1-SNAPSHOT', changing: true
+              }
+
+p
+  ' Currently, there are only Snapshots available which might change frequently.
+
+p
+  ' In order to receive notifications via
+  ' <a href="http://developer.android.com/google/gcm">Google's Cloud Messaging</a>, a special <code>receiver</code> and
+  ' <code>service</code> has to be added to your <code>AndroidManifest.xml</code>.
+
+pre
+  code.xml &lt;application android:name="..."&gt;
+
+               ...
+
+               &lt;receiver android:name="com.anyaku.epd.client.android.transport.gcm.GcmBroadcastReceiver"
+                         android:permission="com.google.android.c2dm.permission.SEND" &gt;
+                   &lt;intent-filter&gt;
+                       &lt;action android:name="com.google.android.c2dm.intent.RECEIVE" /&gt;
+                       &lt;category android:name="com.example.gcm" /&gt;
+                   &lt;/intent-filter&gt;
+               &lt;/receiver&gt;
+
+               &lt;service android:name="com.anyaku.epd.client.android.transport.gcm.GcmIntentService" /&gt;
+
+           &lt;/application&gt;
+
+p
+  ' Now, you're ready to go. Follow up to the documentation about
+  ' <a href="/documentation/general/how-it-works">How it works</a>, or just dive into the code by implementing a
+  ' <a href="/documentation/operations/create">Create (Sign up)</a> operation.
