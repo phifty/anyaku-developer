@@ -10,7 +10,7 @@ html class="no-js" lang="en" ng-app="main"
 
     title Anyaku developer
 
-  body
+  body ng-controller="PageController"
     .row
       .columns.large-12
         .header
@@ -30,6 +30,13 @@ html class="no-js" lang="en" ng-app="main"
 
     .row
       .columns.large-12 ng-view=""
+
+    .row
+      .columns.large-12
+        #disqus_thread
+        a href="http://disqus.com" class="dsq-brlink"
+          | comments powered by
+          span class="logo-disqus" Disqus
 
     - base_path = File.dirname(__FILE__)
     - Dir[ File.expand_path('pages/**/*.slim', base_path) ].each do |file_name|
