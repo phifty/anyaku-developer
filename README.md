@@ -1,4 +1,4 @@
-simia-tech.github.io/anyaku-developer
-=====================================
+developer.anyaku.com
+====================
 
 Anyaku developer website
